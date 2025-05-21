@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="planet_mercury" />
+    <drawable name="planet_jupiter" />
+    <drawable name="flag_australia" />
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="questionText" type="id" />
+    <item name="questionCounter" type="id" />
+    <item name="flagImageView" type="id" />
+    <item name="timerText" type="id" />
+    <item name="nextBtn" type="id" />
+    <item name="backBtn" type="id" />
+    <item name="resultText" type="id" />
+    <item name="flagsQuizButton" type="id" />
+    <item name="capitalsQuizButton" type="id" />
+    <item name="nationalitiesQuizButton" type="id" />
+    <item name="languagesQuizButton" type="id" />
+    <item name="planetsQuizButton" type="id" />
+    <item name="bottomNavigation" type="id" />
+    <item name="quiz1Container" type="id" />
+    <item name="quiz2Container" type="id" />
+    <item name="quiz3Container" type="id" />
+    <item name="quiz4Container" type="id" />
+    <item name="quiz5Container" type="id" />
+    <item name="option4Button" type="id" />
+    <item name="option3Button" type="id" />
+    <item name="option2Button" type="id" />
+    <item name="option1Button" type="id" />
+    <item name="timerTextView" type="id" />
+    <item name="progressTextView" type="id" />
+</resources>

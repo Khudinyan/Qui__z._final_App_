@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoriesFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.qui__z.CategoriesFragment"
+        android:label="Категории">
+        <argument
+            android:name="USER_NAME"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.qui__z.ui.home.HomeFragment"
+        android:label="Главная">
+        <action
+            android:id="@+id/action_home_to_quiz"
+            app:destination="@id/quizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.example.qui__z.ui.leaderboard.LeaderboardFragment"
+        android:label="Таблица лидеров" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.qui__z.ui.settings.SettingsFragment"
+        android:label="Настройки" />
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.qui__z.ui.quiz.QuizFragment"
+        android:label="Викторина">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="USER_NAME"
+            app:argType="string" />
+    </fragment>
+
+</navigation> 
