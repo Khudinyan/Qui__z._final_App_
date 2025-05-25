@@ -24,4 +24,20 @@
     <item name="option1Button" type="id" />
     <item name="timerTextView" type="id" />
     <item name="progressTextView" type="id" />
+    <item name="timer" type="id" />
+    <item name="questions" type="id" />
+    <item name="question" type="id" />
+    <item name="option1" type="id" />
+    <item name="option2" type="id" />
+    <item name="option3" type="id" />
+    <item name="option4" type="id" />
+    <item name="questionTextView" type="id" />
+    <item name="nextButton" type="id" />
+    <item name="answerButton1" type="id" />
+    <item name="answerButton2" type="id" />
+    <item name="answerButton3" type="id" />
+    <item name="answerButton4" type="id" />
+    <item name="nationalityLayout" type="id" />
+    <item name="planetsLayout" type="id" />
+    <item name="languageLayout" type="id" />
 </resources>

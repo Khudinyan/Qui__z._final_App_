@@ -9,10 +9,10 @@
         android:pathData="M0,0h24v24h-24z"/>
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M0,0l24,24M24,0l-24,24"/>
+        android:pathData="M0,0l24,24M24,0L0,24"/>
     <path
         android:fillColor="#C8102E"
-        android:pathData="M0,0l24,24M24,0l-24,24"/>
+        android:pathData="M0,0l24,24M24,0L0,24"/>
     <path
         android:fillColor="#FFFFFF"
         android:pathData="M12,0v24M0,12h24"/>

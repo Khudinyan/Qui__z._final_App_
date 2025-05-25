@@ -9,17 +9,17 @@
         android:pathData="M0,0h24v24h-24z"/>
     <path
         android:fillColor="#FFDE00"
-        android:pathData="M4,4l2,1l-1,2l-2,-1z"/>
+        android:pathData="M4,4l3,1l-1,3l-3,-1z"/>
     <path
         android:fillColor="#FFDE00"
-        android:pathData="M7,2l1,1l-1,1l-1,-1z"/>
+        android:pathData="M8,2l1,2l-1,2l-1,-2z"/>
     <path
         android:fillColor="#FFDE00"
-        android:pathData="M10,2l1,1l-1,1l-1,-1z"/>
+        android:pathData="M12,2l1,2l-1,2l-1,-2z"/>
     <path
         android:fillColor="#FFDE00"
-        android:pathData="M13,2l1,1l-1,1l-1,-1z"/>
+        android:pathData="M16,2l1,2l-1,2l-1,-2z"/>
     <path
         android:fillColor="#FFDE00"
-        android:pathData="M16,2l1,1l-1,1l-1,-1z"/>
+        android:pathData="M20,4l3,1l-1,3l-3,-1z"/>
 </vector> 

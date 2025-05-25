@@ -45,7 +45,7 @@ public class NameInputActivity extends AppCompatActivity {
             }
             
             String rawName = text.toString();
-            Toast.makeText(this, "Сырое имя: " + rawName, Toast.LENGTH_SHORT).show(); // Временный Toast
+            Toast.makeText(this, "Добро пожаловать" + rawName, Toast.LENGTH_SHORT).show(); // Временный Toast
             
             String name = rawName.trim();
             

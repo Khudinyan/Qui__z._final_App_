@@ -19,7 +19,7 @@ public class CategoriesFragment extends Fragment {
     private TextView userNameTextView;
     private TextView userScoreTextView;
     private String selectedCategory = "";
-    private CardView flagsMainLayout, capitalLayout, continentsLayout;
+    private CardView flagsMainLayout, capitalLayout;
     private MaterialButton startQuizBtn;
     private static final String KEY_SELECTED_CATEGORY = "selected_category";
 
@@ -69,13 +69,11 @@ public class CategoriesFragment extends Fragment {
         try {
             flagsMainLayout = view.findViewById(R.id.flagsMainLayout);
             capitalLayout = view.findViewById(R.id.capitalLayout);
-            continentsLayout = view.findViewById(R.id.continentsLayout);
             startQuizBtn = view.findViewById(R.id.startQuizBtn);
             startQuizBtn.setEnabled(false);
 
             if (flagsMainLayout == null) throw new NullPointerException("flagsMainLayout is null in CategoriesFragment");
             if (capitalLayout == null) throw new NullPointerException("capitalLayout is null in CategoriesFragment");
-            if (continentsLayout == null) throw new NullPointerException("continentsLayout is null in CategoriesFragment");
             if (startQuizBtn == null) throw new NullPointerException("startQuizBtn is null in CategoriesFragment");
 
         } catch (Exception e) {
@@ -85,8 +83,15 @@ public class CategoriesFragment extends Fragment {
 
     private void setupCardListeners() {
         flagsMainLayout.setOnClickListener(v -> selectCategory("flags"));
-        capitalLayout.setOnClickListener(v -> selectCategory("capitals"));
-        continentsLayout.setOnClickListener(v -> selectCategory("continents"));
+        capitalLayout.setOnClickListener(v -> selectCategory("capital"));
+        View languageLayout = getView().findViewById(R.id.languageLayout);
+        if (languageLayout != null) languageLayout.setOnClickListener(v -> selectCategory("language"));
+
+        View nationalityLayout = getView().findViewById(R.id.nationalityLayout);
+        if (nationalityLayout != null) nationalityLayout.setOnClickListener(v -> selectCategory("nationality"));
+
+        View planetsLayout = getView().findViewById(R.id.planetsLayout);
+        if (planetsLayout != null) planetsLayout.setOnClickListener(v -> selectCategory("planets"));
     }
 
     private void setupStartButton() {
@@ -114,11 +119,17 @@ public class CategoriesFragment extends Fragment {
                 case "flags":
                     selectedCard = flagsMainLayout;
                     break;
-                case "capitals":
+                case "capital":
                     selectedCard = capitalLayout;
                     break;
-                case "continents":
-                    selectedCard = continentsLayout;
+                case "language":
+                    selectedCard = getView().findViewById(R.id.languageLayout) instanceof CardView ? (CardView) getView().findViewById(R.id.languageLayout) : null;
+                    break;
+                case "nationality":
+                    selectedCard = getView().findViewById(R.id.nationalityLayout) instanceof CardView ? (CardView) getView().findViewById(R.id.nationalityLayout) : null;
+                    break;
+                case "planets":
+                    selectedCard = getView().findViewById(R.id.planetsLayout) instanceof CardView ? (CardView) getView().findViewById(R.id.planetsLayout) : null;
                     break;
             }
 
@@ -135,7 +146,16 @@ public class CategoriesFragment extends Fragment {
             int defaultColor = requireContext().getResources().getColor(android.R.color.white);
             flagsMainLayout.setCardBackgroundColor(defaultColor);
             capitalLayout.setCardBackgroundColor(defaultColor);
-            continentsLayout.setCardBackgroundColor(defaultColor);
+
+            View languageLayout = getView().findViewById(R.id.languageLayout);
+            if (languageLayout instanceof CardView) ((CardView) languageLayout).setCardBackgroundColor(defaultColor);
+
+            View nationalityLayout = getView().findViewById(R.id.nationalityLayout);
+            if (nationalityLayout instanceof CardView) ((CardView) nationalityLayout).setCardBackgroundColor(defaultColor);
+
+            View planetsLayout = getView().findViewById(R.id.planetsLayout);
+            if (planetsLayout instanceof CardView) ((CardView) planetsLayout).setCardBackgroundColor(defaultColor);
+
         } catch (Exception e) {
             Toast.makeText(getContext(), "Ошибка при сбросе выделения", Toast.LENGTH_SHORT).show();
         }
