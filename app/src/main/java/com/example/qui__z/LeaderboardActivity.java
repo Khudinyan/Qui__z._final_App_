@@ -1,80 +1,101 @@
 package com.example.qui__z;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.qui__z.adapter.LeaderboardAdapter;
+import com.example.qui__z.model.UserScore;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private TextView emptyView;
+
+    private RecyclerView leaderboardRecyclerView;
+    private Spinner categorySpinner;
     private LeaderboardAdapter adapter;
+    private List<UserScore> allScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        // Инициализация views
         initializeViews();
-
-        // Настройка Toolbar
-        setupToolbar();
-
-        // Загрузка и отображение результатов
+        setupCategorySpinner();
         loadScores();
+        setupBottomNavigation();
     }
 
     private void initializeViews() {
-        recyclerView = findViewById(R.id.recyclerView);
-        emptyView = findViewById(R.id.emptyView);
+        leaderboardRecyclerView = findViewById(R.id.leaderboardRecyclerView);
+        categorySpinner = findViewById(R.id.categorySpinner);
         
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        leaderboardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LeaderboardAdapter(new ArrayList<>());
-        recyclerView.setAdapter(adapter);
+        leaderboardRecyclerView.setAdapter(adapter);
     }
 
-    private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle("Таблица лидеров");
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private void setupCategorySpinner() {
+        String[] categories = {"Все категории", "Столицы", "Флаги", "Языки", "Национальности", "Планеты"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(spinnerAdapter);
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    adapter.updateScores(allScores);
+                } else {
+                    String selectedCategory = categories[position];
+                    List<UserScore> filteredScores = new ArrayList<>();
+                    for (UserScore score : allScores) {
+                        if (score.getCategory().equals(selectedCategory)) {
+                            filteredScores.add(score);
+                        }
+                    }
+                    adapter.updateScores(filteredScores);
+                }
             }
-        }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Ничего не делаем, если ничего не выбрано
+            }
+        });
     }
 
     private void loadScores() {
-        List<User> scores = User.getScores(this);
-        
-        if (scores.isEmpty()) {
-            recyclerView.setVisibility(android.view.View.GONE);
-            emptyView.setVisibility(android.view.View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(android.view.View.VISIBLE);
-            emptyView.setVisibility(android.view.View.GONE);
-            
-            // Сортировка по убыванию счета
-            Collections.sort(scores, (u1, u2) -> Integer.compare(u2.getScore(), u1.getScore()));
-            
-            adapter.updateScores(scores);
-        }
+        allScores = LeaderboardManager.getInstance(this).getScores();
+        adapter.updateScores(allScores);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_leaderboard);
+        
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.navigation_home) {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.navigation_leaderboard) {
+                return true;
+            } else if (itemId == R.id.navigation_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 } 

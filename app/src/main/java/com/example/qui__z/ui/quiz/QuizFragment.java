@@ -18,7 +18,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.qui__z.R;
-import com.example.qui__z.Question;
+import com.example.qui__z.model.Question;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

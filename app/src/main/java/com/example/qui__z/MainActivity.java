@@ -9,25 +9,15 @@ import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.navigation.fragment.NavHostFragment;
-import android.view.MenuItem;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private String selectedTopic = "";
-    private String selectedLevel="";
+    private String selectedLevel = "";
     private String playerName = "";
-    private CardView capitalLayout, flagsLayout, continentsLayout;
-    private Button startQuizBtn;
-
-    private NavController navController;
+    private CardView flagsCard, capitalsCard, nationalitiesCard, languagesCard, planetsCard;
+    private MaterialButton startQuizBtn;
 
     private static final String TAG = "MainActivity";
 
@@ -37,75 +27,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         playerName = getIntent().getStringExtra("USER_NAME");
-        Log.d(TAG, "Attempting to get USER_NAME from Intent. Received: " + playerName);
-
         if (playerName == null || playerName.isEmpty()) {
-            Log.w(TAG, "USER_NAME not provided in Intent. Using default name.");
-            playerName = "ТестовыйИгрок";
+            Toast.makeText(this, "Пожалуйста, введите ваше имя", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, NameInputActivity.class));
+            finish();
+            return;
         }
 
-        Log.d(TAG, "Using playerName: " + playerName);
+        initializeViews();
+        setupClickListeners();
+    }
 
-        FragmentContainerView navHostContainer = findViewById(R.id.nav_host_fragment);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+    private void initializeViews() {
+        flagsCard = findViewById(R.id.flagsCard);
+        capitalsCard = findViewById(R.id.capitalsCard);
+        nationalitiesCard = findViewById(R.id.nationalitiesCard);
+        languagesCard = findViewById(R.id.languagesCard);
+        planetsCard = findViewById(R.id.planetsCard);
+        startQuizBtn = findViewById(R.id.start_quiz_button);
+    }
 
-        if (navHostFragment != null) {
-            navController = navHostFragment.getNavController();
+    private void setupClickListeners() {
+        flagsCard.setOnClickListener(v -> selectCategory("flags"));
+        capitalsCard.setOnClickListener(v -> selectCategory("capital"));
+        nationalitiesCard.setOnClickListener(v -> selectCategory("nationality"));
+        languagesCard.setOnClickListener(v -> selectCategory("language"));
+        planetsCard.setOnClickListener(v -> selectCategory("planets"));
 
-            BottomNavigationView navView = findViewById(R.id.bottom_navigation);
-            if (navView != null) {
-                NavigationUI.setupWithNavController(navView, navController);
+        startQuizBtn.setOnClickListener(v -> {
+            if (!selectedTopic.isEmpty()) {
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                intent.putExtra("CATEGORY", selectedTopic);
+                intent.putExtra("USER_NAME", playerName);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "Пожалуйста, выберите категорию", Toast.LENGTH_SHORT).show();
             }
-
-            Bundle bundle = new Bundle();
-            bundle.putString("USER_NAME", playerName);
-            Log.d(TAG, "Setting nav graph with USER_NAME: " + playerName);
-            navController.setGraph(R.navigation.nav_graph, bundle);
-        } else {
-            Log.e(TAG, "Ошибка: NavHostFragment не найден");
-            Toast.makeText(this, "Ошибка: NavHostFragment не найден", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        });
     }
 
-    public void restartGame() {
-        SharedPreferences prefs = getSharedPreferences("quiz_app", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("playerName", "");
-        editor.putString("selectedTopic", "");
-        editor.apply();
-
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void checkPlayerNameAndStart() {
-        SharedPreferences prefs = getSharedPreferences("quiz_app", MODE_PRIVATE);
-        String storedPlayerName = prefs.getString("playerName", null);
-
-        if (storedPlayerName == null || storedPlayerName.isEmpty()) {
-            Toast.makeText(MainActivity.this, "Выберите викторину и начинайте заново", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("selectedTopic", "");
-            editor.apply();
-
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Здесь может быть логика старта викторины с сохраненным именем
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        NavController currentNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.onNavDestinationSelected(item, currentNavController) || super.onOptionsItemSelected(item);
+    private void selectCategory(String category) {
+        selectedTopic = category;
+        Toast.makeText(this, "Выбрана категория: " + category, Toast.LENGTH_SHORT).show();
     }
 }

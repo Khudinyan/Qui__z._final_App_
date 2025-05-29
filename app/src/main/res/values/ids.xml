@@ -40,4 +40,5 @@
     <item name="nationalityLayout" type="id" />
     <item name="planetsLayout" type="id" />
     <item name="languageLayout" type="id" />
+    <item name="nameTextView" type="id" />
 </resources>

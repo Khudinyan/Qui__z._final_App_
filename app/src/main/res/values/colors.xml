@@ -9,12 +9,18 @@
     <color name="gray">#FF757575</color>
     <color name="selected_card">#E3F2FD</color>
     <color name="pressed_card">#BBDEFB</color>
-    <color name="correct_answer">#FF4CAF50</color>
-    <color name="wrong_answer">#FFF44336</color>
+    <color name="correct_answer">#4CAF50</color>
+    <color name="wrong_answer">#F44336</color>
     <color name="blue" />
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="light_gray">#FFEEEEEE</color>
+    <color name="navigation_item_color">#757575</color>
+    <color name="navigation_item_selected_color">#1F6BB8</color>
+    <color name="error">#FFB00020</color>
+    <color name="success">#FF4CAF50</color>
+    <color name="warning">#FFFFC107</color>
 </resources>

@@ -15,7 +15,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         TextView loadingText = findViewById(R.id.loadingText);
-        loadingText.setText("Loading...");
+        loadingText.setText("Загрузка...");
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(WelcomeActivity.this, NameInputActivity.class);

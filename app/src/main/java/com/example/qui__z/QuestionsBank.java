@@ -9,16 +9,17 @@ public class QuestionsBank {
     private static List<QuestionsList> capitalQuestions() {
         final List<QuestionsList> questionsList = new ArrayList<>();
 
-        questionsList.add(new QuestionsList("Какая столица у Бразилии?", "Бразилиа", "Рио-де-Жанейро", "Сан-Паулу", "Сальвадор", "Бразилиа", ""));
-        questionsList.add(new QuestionsList("Какая столица у Египта?", "Каир", "Александрия", "Гиза", "Луксор", "Каир", ""));
-        questionsList.add(new QuestionsList("Какая столица у Турции?", "Анкара", "Стамбул", "Измир", "Анталья", "Анкара", ""));
-        questionsList.add(new QuestionsList("Какая столица у Индии?", "Нью-Дели", "Мумбаи", "Бангалор", "Калькутта", "Нью-Дели", ""));
-        questionsList.add(new QuestionsList("Какая столица у Мексики?", "Мехико", "Гвадалахара", "Канкун", "Монтеррей", "Мехико", ""));
-        questionsList.add(new QuestionsList("Какая столица у Аргентины?", "Буэнос-Айрес", "Кордова", "Росарио", "Мендоса", "Буэнос-Айрес", ""));
-        questionsList.add(new QuestionsList("Какая столица у Украины?", "Киев", "Львов", "Харьков", "Одесса", "Киев", ""));
-        questionsList.add(new QuestionsList("Какая столица у Ирана?", "Тегеран", "Исфахан", "Шираз", "Мешхед", "Тегеран", ""));
-        questionsList.add(new QuestionsList("Какая столица у Швеции?", "Стокгольм", "Гётеборг", "Мальмё", "Уппсала", "Стокгольм", ""));
-        questionsList.add(new QuestionsList("Какая столица у Норвегии?", "Осло", "Берген", "Тронхейм", "Ставангер", "Осло", ""));
+        final QuestionsList question1 = new QuestionsList("Столица России?", "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Москва");
+        final QuestionsList question2 = new QuestionsList("Столица Франции?", "Лондон", "Берлин", "Париж", "Мадрид", "Париж");
+        final QuestionsList question3 = new QuestionsList("Столица Германии?", "Берлин", "Мюнхен", "Гамбург", "Франкфурт", "Берлин");
+        final QuestionsList question4 = new QuestionsList("Столица Италии?", "Милан", "Рим", "Неаполь", "Турин", "Рим");
+        final QuestionsList question5 = new QuestionsList("Столица Испании?", "Барселона", "Мадрид", "Валенсия", "Севилья", "Мадрид");
+
+        questionsList.add(question1);
+        questionsList.add(question2);
+        questionsList.add(question3);
+        questionsList.add(question4);
+        questionsList.add(question5);
 
         return questionsList;
     }
@@ -27,16 +28,17 @@ public class QuestionsBank {
     private static List<QuestionsList> flagsQuestions() {
         final List<QuestionsList> questionsList = new ArrayList<>();
 
-        questionsList.add(new QuestionsList("Флаг какой страны состоит из трех вертикальных полос: синей, белой и красной?", "а) Италия", "б) Россия", "в) Франция", "г) Нидерланды", "в) Франция", ""));
-        questionsList.add(new QuestionsList("На флаге какой страны изображен красный круг на белом фоне?", "а) Китай", "б) Япония", "в) Южная Корея", "г) Вьетнам", "б) Япония", ""));
-        questionsList.add(new QuestionsList("Какой флаг имеет черный, красный и желтый горизонтальные полосы?", "а) Бельгия", "б) Германия", "в) Украина", "г) Эфиопия", "б) Германия", ""));
-        questionsList.add(new QuestionsList("Флаг какой страны называют \"Юнион Джек\"?", "а) США", "б) Австралия", "в) Великобритания", "г) Канада", "в) Великобритания", ""));
-        questionsList.add(new QuestionsList("На флаге какой страны изображен кленовый лист?", "а) Швейцария", "б) Канада", "в) Норвегия", "г) Финляндия", "б) Канада", ""));
-        questionsList.add(new QuestionsList("Какой флаг имеет пять желтых звезд на красном фоне?", "а) Северная Корея", "б) Вьетнам", "в) Китай", "г) Сингапур", "в) Китай", ""));
-        questionsList.add(new QuestionsList("Флаг какой страны состоит из красного креста на белом фоне?", "а) Швеция", "б) Дания", "в) Швейцария", "г) Норвегия", "в) Швейцария", ""));
-        questionsList.add(new QuestionsList("Какой флаг имеет зеленый фон с белым полумесяцем и звездой?", "а) Пакистан", "б) Турция", "в) Алжир", "г) Малайзия", "б) Турция", ""));
-        questionsList.add(new QuestionsList("На флаге какой страны изображены четыре звезды и синий крест?", "а) Новая Зеландия", "б) Австралия", "в) Самоа", "г) Фиджи", "г) Фиджи", ""));
-        questionsList.add(new QuestionsList("Флаг какой страны состоит из 14 горизонтальных красно-белых полос и синего квадрата с желтым полумесяцем и звездой?", "а) Индонезия", "б) Малайзия", "в) Сингапур", "г) Таиланд", "б) Малайзия", ""));
+        final QuestionsList question1 = new QuestionsList("Флаг какой страны?", "Россия", "Франция", "Германия", "Италия", "Россия");
+        final QuestionsList question2 = new QuestionsList("Флаг какой страны?", "Испания", "Португалия", "Франция", "Италия", "Франция");
+        final QuestionsList question3 = new QuestionsList("Флаг какой страны?", "Австрия", "Германия", "Швейцария", "Бельгия", "Германия");
+        final QuestionsList question4 = new QuestionsList("Флаг какой страны?", "Греция", "Италия", "Испания", "Португалия", "Италия");
+        final QuestionsList question5 = new QuestionsList("Флаг какой страны?", "Франция", "Испания", "Португалия", "Италия", "Испания");
+
+        questionsList.add(question1);
+        questionsList.add(question2);
+        questionsList.add(question3);
+        questionsList.add(question4);
+        questionsList.add(question5);
 
         return questionsList;
     }
@@ -45,16 +47,17 @@ public class QuestionsBank {
     private static List<QuestionsList> languageQuestions() {
         final List<QuestionsList> questionsList = new ArrayList<>();
 
-        questionsList.add(new QuestionsList("На каком языке говорят в Бразилии?", "а) Португальский", "б) Испанский", "в) Бразильский", "г) Английский", "а) Португальский", ""));
-        questionsList.add(new QuestionsList("Какой язык является официальным в Китае?", "а) Китайский", "б) Мандарин", "в) Кантонский", "г) Английский", "а) Китайский", ""));
-        questionsList.add(new QuestionsList("На каком языке говорят в Японии?", "а) Японский", "б) Корейский", "в) Китайский", "г) Мандарин", "а) Японский", ""));
-        questionsList.add(new QuestionsList("На каком языке говорят в Германии?", "а) Немецкий", "б) Голландский", "в) Французский", "г) Английский", "а) Немецкий", ""));
-        questionsList.add(new QuestionsList("На каком языке говорят в Италии?", "а) Итальянский", "б) Испанский", "в) Французский", "г) Латынь", "а) Итальянский", ""));
-        questionsList.add(new QuestionsList("Какой язык является официальным в Индии?", "а) Хинди", "б) Английский", "в) Бенгальский", "г) Все перечисленные", "г) Все перечисленные", ""));
-        questionsList.add(new QuestionsList("На каком языке говорят в Египте?", "а) Арабский", "б) Египетский", "в) Французский", "г) Английский", "а) Арабский", ""));
-        questionsList.add(new QuestionsList("Какой язык является официальным в Южной Корее?", "а) Корейский", "б) Японский", "в) Китайский", "г) Английский", "а) Корейский", ""));
-        questionsList.add(new QuestionsList("На каком языке говорят в Швеции?", "а) Шведский", "б) Норвежский", "в) Датский", "г) Финский", "а) Шведский", ""));
-        questionsList.add(new QuestionsList("Какой язык является официальным в Мексике?", "а) Испанский", "б) Мексиканский", "в) Португальский", "г) Английский", "а) Испанский", ""));
+        final QuestionsList question1 = new QuestionsList("Официальный язык России?", "Русский", "Английский", "Французский", "Немецкий", "Русский");
+        final QuestionsList question2 = new QuestionsList("Официальный язык Франции?", "Английский", "Французский", "Немецкий", "Испанский", "Французский");
+        final QuestionsList question3 = new QuestionsList("Официальный язык Германии?", "Английский", "Французский", "Немецкий", "Испанский", "Немецкий");
+        final QuestionsList question4 = new QuestionsList("Официальный язык Италии?", "Английский", "Французский", "Немецкий", "Итальянский", "Итальянский");
+        final QuestionsList question5 = new QuestionsList("Официальный язык Испании?", "Английский", "Французский", "Немецкий", "Испанский", "Испанский");
+
+        questionsList.add(question1);
+        questionsList.add(question2);
+        questionsList.add(question3);
+        questionsList.add(question4);
+        questionsList.add(question5);
 
         return questionsList;
     }
@@ -63,16 +66,17 @@ public class QuestionsBank {
     private static List<QuestionsList> nationalityQuestions() {
         final List<QuestionsList> questionsList = new ArrayList<>();
 
-        questionsList.add(new QuestionsList("Как называют жителей Японии?", "а) Японцы", "б) Китайцы", "в) Корейцы", "г) Монголы", "а) Японцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Германии?", "а) Немцы", "б) Голландцы", "в) Французы", "г) Австрийцы", "а) Немцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Франции?", "а) Французы", "б) Бельгийцы", "в) Швейцарцы", "г) Канадцы", "а) Французы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Италии?", "а) Итальянцы", "б) Испанцы", "в) Греки", "г) Римляне", "а) Итальянцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Испании?", "а) Испанцы", "б) Португальцы", "в) Мексиканцы", "г) Колумбийцы", "а) Испанцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Китая?", "а) Китайцы", "б) Японцы", "в) Корейцы", "г) Вьетнамцы", "а) Китайцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Бразилии?", "а) Бразильцы", "б) Аргентинцы", "в) Колумбийцы", "г) Перуанцы", "а) Бразильцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Египта?", "а) Египтяне", "б) Арабы", "в) Африканцы", "г) Азиаты", "а) Египтяне", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Австралии?", "а) Австралийцы", "б) Новозеландцы", "в) Океанийцы", "г) Азиаты", "а) Австралийцы", ""));
-        questionsList.add(new QuestionsList("Как называют жителей Канады?", "а) Канадцы", "б) Американцы", "в) Мексиканцы", "г) Североамериканцы", "а) Канадцы", ""));
+        final QuestionsList question1 = new QuestionsList("Житель России?", "Русский", "Француз", "Немец", "Итальянец", "Русский");
+        final QuestionsList question2 = new QuestionsList("Житель Франции?", "Русский", "Француз", "Немец", "Итальянец", "Француз");
+        final QuestionsList question3 = new QuestionsList("Житель Германии?", "Русский", "Француз", "Немец", "Итальянец", "Немец");
+        final QuestionsList question4 = new QuestionsList("Житель Италии?", "Русский", "Француз", "Немец", "Итальянец", "Итальянец");
+        final QuestionsList question5 = new QuestionsList("Житель Испании?", "Русский", "Француз", "Немец", "Испанец", "Испанец");
+
+        questionsList.add(question1);
+        questionsList.add(question2);
+        questionsList.add(question3);
+        questionsList.add(question4);
+        questionsList.add(question5);
 
         return questionsList;
     }
@@ -81,16 +85,17 @@ public class QuestionsBank {
     private static List<QuestionsList> planetsQuestions() {
         final List<QuestionsList> questionsList = new ArrayList<>();
 
-        questionsList.add(new QuestionsList("Какая планета ближайшая к Солнцу?", "а) Меркурий", "б) Венера", "в) Земля", "г) Марс", "а) Меркурий", ""));
-        questionsList.add(new QuestionsList("Какая планета самая большая в Солнечной системе?", "а) Юпитер", "б) Сатурн", "в) Уран", "г) Нептун", "а) Юпитер", ""));
-        questionsList.add(new QuestionsList("Какую планету называют Красной планетой?", "а) Марс", "б) Венера", "в) Юпитер", "г) Сатурн", "а) Марс", ""));
-        questionsList.add(new QuestionsList("На какой планете самые большие кольца?", "а) Сатурн", "б) Юпитер", "в) Уран", "г) Нептун", "а) Сатурн", ""));
-        questionsList.add(new QuestionsList("Какая планета известна своим Большим красным пятном?", "а) Юпитер", "б) Марс", "в) Венера", "г) Меркурий", "а) Юпитер", ""));
-        questionsList.add(new QuestionsList("Какая планета вращается в обратном направлении?", "а) Венера", "б) Уран", "в) Нептун", "г) Плутон", "а) Венера", ""));
-        questionsList.add(new QuestionsList("На какой планете самый длинный день?", "а) Венера", "б) Меркурий", "в) Марс", "г) Юпитер", "а) Венера", ""));
-        questionsList.add(new QuestionsList("Какая планета имеет больше всего спутников?", "а) Юпитер", "б) Сатурн", "в) Уран", "г) Нептун", "б) Сатурн", ""));
-        questionsList.add(new QuestionsList("На какой планете самые сильные ветры?", "а) Нептун", "б) Юпитер", "в) Сатурн", "г) Уран", "а) Нептун", ""));
-        questionsList.add(new QuestionsList("Какая планета имеет самый большой перепад температур?", "а) Меркурий", "б) Венера", "в) Марс", "г) Юпитер", "а) Меркурий", ""));
+        final QuestionsList question1 = new QuestionsList("Самая большая планета?", "Меркурий", "Венера", "Земля", "Юпитер", "Юпитер");
+        final QuestionsList question2 = new QuestionsList("Самая близкая к Солнцу планета?", "Меркурий", "Венера", "Земля", "Марс", "Меркурий");
+        final QuestionsList question3 = new QuestionsList("Самая горячая планета?", "Меркурий", "Венера", "Земля", "Марс", "Венера");
+        final QuestionsList question4 = new QuestionsList("Самая холодная планета?", "Юпитер", "Сатурн", "Уран", "Нептун", "Нептун");
+        final QuestionsList question5 = new QuestionsList("Самая маленькая планета?", "Меркурий", "Венера", "Земля", "Марс", "Меркурий");
+
+        questionsList.add(question1);
+        questionsList.add(question2);
+        questionsList.add(question3);
+        questionsList.add(question4);
+        questionsList.add(question5);
 
         return questionsList;
     }
@@ -109,7 +114,7 @@ public class QuestionsBank {
             case "planets":
                 return planetsQuestions();
             default:
-                return capitalQuestions(); // По умолчанию возвращаем вопросы по флагам
+                return capitalQuestions(); // По умолчанию возвращаем вопросы по столицам
         }
     }
 } 

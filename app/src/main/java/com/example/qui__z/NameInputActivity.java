@@ -9,6 +9,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class NameInputActivity extends AppCompatActivity {
     private TextInputEditText nameInput;
+    private MaterialButton startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,33 +25,13 @@ public class NameInputActivity extends AppCompatActivity {
 
     private void initializeViews() {
         nameInput = findViewById(R.id.nameInput);
-        MaterialButton startButton = findViewById(R.id.startButton);
+        startButton = findViewById(R.id.startButton);
     }
 
     private void setupClickListeners() {
-        MaterialButton startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(v -> {
-            // Получаем nameInput здесь, непосредственно перед использованием
-            TextInputEditText currentNameInput = findViewById(R.id.nameInput);
-
-            if (currentNameInput == null) {
-                 Toast.makeText(this, "Ошибка: Поле ввода имени не найдено в ClickListener", Toast.LENGTH_SHORT).show();
-                 return;
-            }
+            String name = nameInput.getText().toString().trim();
             
-            CharSequence text = currentNameInput.getText();
-            if (text == null) {
-                 Toast.makeText(this, "Ошибка: Текст из поля ввода равен null", Toast.LENGTH_SHORT).show();
-                 return;
-            }
-            
-            String rawName = text.toString();
-            Toast.makeText(this, "Добро пожаловать" + rawName, Toast.LENGTH_SHORT).show(); // Временный Toast
-            
-            String name = rawName.trim();
-            
-            Toast.makeText(NameInputActivity.this, "Передача имени: " + name, Toast.LENGTH_SHORT).show(); // Временный Toast
-
             if (name.isEmpty()) {
                 Toast.makeText(this, "Пожалуйста, введите ваше имя", Toast.LENGTH_SHORT).show();
                 return;
@@ -66,11 +47,6 @@ public class NameInputActivity extends AppCompatActivity {
                 return;
             }
 
-            // Создаем нового пользователя и сохраняем его данные
-            // User user = new User(name, 0, ""); // Закомментировано
-            // user.saveScore(this); // Закомментировано
-
-            // Переходим к главному экрану
             Intent intent = new Intent(NameInputActivity.this, MainActivity.class);
             intent.putExtra("USER_NAME", name);
             startActivity(intent);
