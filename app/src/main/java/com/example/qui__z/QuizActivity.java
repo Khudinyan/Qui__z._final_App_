@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.qui__z.model.UserScore;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button nextBtn;
     private Button backBtn;
     private BottomNavigationView bottomNavigationView;
+    private ImageView flagImageView;
 
     private List<QuestionsList> questions;
     private int currentQuestionIndex = 0;
@@ -34,14 +37,16 @@ public class QuizActivity extends AppCompatActivity {
     private CountDownTimer timer;
     private static final long QUESTION_TIME_MILLIS = 2 * 60 * 1000; // 2 минуты
     private long timeLeftInMillis = QUESTION_TIME_MILLIS;
+    private String category;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        String category = getIntent().getStringExtra("CATEGORY");
-        String userName = getIntent().getStringExtra("USER_NAME");
+        category = getIntent().getStringExtra("CATEGORY");
+        userName = getIntent().getStringExtra("USER_NAME");
 
         initializeViews();
         setupClickListeners();
@@ -65,6 +70,7 @@ public class QuizActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextBtn);
         backBtn = findViewById(R.id.backBtn);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        flagImageView = findViewById(R.id.flagImageView);
     }
 
     private void setupClickListeners() {
@@ -156,6 +162,27 @@ public class QuizActivity extends AppCompatActivity {
             option3.setText(currentQuestion.getOption3());
             option4.setText(currentQuestion.getOption4());
 
+            // Показываем флаг только для категории "flags"
+            if (category.equals("flags")) {
+                flagImageView.setVisibility(View.VISIBLE);
+                String countryName = currentQuestion.getAnswer().toLowerCase();
+                // Преобразуем название страны в формат имени ресурса
+                String flagResourceName = "flag_" + countryName;
+                int flagResource = getResources().getIdentifier(
+                    flagResourceName,
+                    "drawable",
+                    getPackageName()
+                );
+                if (flagResource != 0) {
+                    flagImageView.setImageResource(flagResource);
+                } else {
+                    // Если флаг не найден, скрываем ImageView
+                    flagImageView.setVisibility(View.GONE);
+                }
+            } else {
+                flagImageView.setVisibility(View.GONE);
+            }
+
             resetOptionsAppearance();
         } else {
             finishQuiz();
@@ -213,11 +240,15 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void finishQuiz() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
+
         Intent intent = new Intent(QuizActivity.this, QuizResults.class);
-        intent.putExtra("correct", score);
-        intent.putExtra("incorrect", questions.size() - score);
-        intent.putExtra("CATEGORY", getIntent().getStringExtra("CATEGORY"));
+        intent.putExtra("SCORE", score);
+        intent.putExtra("TOTAL_QUESTIONS", questions.size());
+        intent.putExtra("CATEGORY", category);
+        intent.putExtra("USER_NAME", userName);
         startActivity(intent);
         finish();
     }

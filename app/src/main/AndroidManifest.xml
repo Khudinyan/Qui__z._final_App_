@@ -29,6 +29,7 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".LeaderboardActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".QuizResults" />
 
     </application>
 

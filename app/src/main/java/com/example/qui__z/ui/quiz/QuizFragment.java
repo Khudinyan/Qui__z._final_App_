@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,12 @@ public class QuizFragment extends Fragment {
         if (getArguments() != null) {
             category = getArguments().getString("CATEGORY", "flags");
             userName = getArguments().getString("USER_NAME");
+            
+            // Показываем мотивирующую цитату
+            String quote = QuizQuotes.getQuote(category);
+            if (getContext() != null) {
+                Toast.makeText(getContext(), quote, Toast.LENGTH_LONG).show();
+            }
         }
         Log.d(TAG, "onCreate: Category is " + category);
     }
@@ -71,37 +78,48 @@ public class QuizFragment extends Fragment {
             questions = Question.getQuestions(category);
             Log.d(TAG, "Loaded " + questions.size() + " questions for category: " + category);
 
-            Collections.shuffle(questions);
-            
-            // Показ первого вопроса
-            if (!questions.isEmpty()) {
-                showQuestion();
-            } else {
-                Log.d(TAG, "No questions loaded for category: " + category);
-                // Возможно, стоит вернуться на предыдущий экран или показать сообщение об отсутствии вопросов
-                // Navigation.findNavController(root).navigateUp();
+            if (questions == null || questions.isEmpty()) {
+                showErrorAndNavigateBack();
+                return root;
             }
+
+            // Показываем мотивирующую цитату в диалоговом окне
+            if (getContext() != null) {
+                String quote = QuizQuotes.getQuote(category);
+                new AlertDialog.Builder(requireContext())
+                    .setTitle("Мотивация")
+                    .setMessage(quote)
+                    .setPositiveButton("Начать!", (dialog, which) -> {
+                        try {
+            Collections.shuffle(questions);
+                showQuestion();
+                        } catch (Exception e) {
+                            Log.e(TAG, "Ошибка при показе вопроса", e);
+                            showErrorAndNavigateBack();
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+            }
+
         } catch (Exception e) {
             Log.e(TAG, "Ошибка инициализации Quiz Fragment", e);
-            // Toast.makeText(getContext(), "Ошибка инициализации Quiz Fragment: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            showErrorAndNavigateBack();
         }
 
         // Настраиваем обработку системной кнопки "Назад"
         onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Если на первом вопросе, показываем диалог выхода
                 if (currentQuestionIndex == 0) {
                     showExitConfirmationDialog();
                 } else {
-                    // Иначе переходим к предыдущему вопросу
                     currentQuestionIndex--;
                     selectedOptionByUser = "";
                     showQuestion();
                 }
             }
         };
-        // Добавляем callback к BackPressedDispatcher активности
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), onBackPressedCallback);
 
         return root;
@@ -190,21 +208,26 @@ public class QuizFragment extends Fragment {
     }
 
     private void showQuestion() {
-        Log.d(TAG, "showQuestion: Attempting to show question index " + currentQuestionIndex);
-        if (currentQuestionIndex < questions.size()) {
-            Question currentQuestion = questions.get(currentQuestionIndex);
-            Log.d(TAG, "showQuestion: Displaying question: " + currentQuestion.getQuestionText());
+        if (currentQuestionIndex >= questions.size()) {
+            finishQuiz();
+            return;
+        }
 
+            Question currentQuestion = questions.get(currentQuestionIndex);
+        if (currentQuestion == null) {
+            showErrorAndNavigateBack();
+            return;
+        }
+
+        try {
             progressBar.setProgress((currentQuestionIndex + 1) * 100 / questions.size());
             questionTextView.setText(currentQuestion.getQuestionText());
             
             if (currentQuestion.getImageResourceId() != 0) {
                 flagImageView.setVisibility(View.VISIBLE);
                 flagImageView.setImageResource(currentQuestion.getImageResourceId());
-                Log.d(TAG, "showQuestion: Setting image resource ID: " + currentQuestion.getImageResourceId());
             } else {
                 flagImageView.setVisibility(View.GONE);
-                Log.d(TAG, "showQuestion: Hiding flag image for question: " + currentQuestion.getQuestionText());
             }
 
             List<String> answers = new ArrayList<>();
@@ -219,9 +242,9 @@ public class QuizFragment extends Fragment {
 
             resetOptionsAppearance();
             setAnswerButtonsClickable(true);
-        } else {
-            Log.d(TAG, "showQuestion: currentQuestionIndex out of bounds or quiz finished.");
-            finishQuiz();
+        } catch (Exception e) {
+            Log.e(TAG, "Ошибка при отображении вопроса", e);
+            showErrorAndNavigateBack();
         }
     }
 
@@ -247,9 +270,39 @@ public class QuizFragment extends Fragment {
 
         if (isCorrect) {
             score++;
-            Log.d(TAG, "checkAnswer: Correct answer! Score: " + score);
+            Log.d(TAG, "Правильный ответ! Текущий счет: " + score);
+            // Подсвечиваем правильный ответ зеленым
+            highlightCorrectAnswer(currentQuestion.getCorrectAnswer());
         } else {
-            Log.d(TAG, "checkAnswer: Incorrect answer. Correct was: " + currentQuestion.getCorrectAnswer());
+            Log.d(TAG, "Неправильный ответ. Правильный ответ: " + currentQuestion.getCorrectAnswer());
+            // Подсвечиваем неправильный ответ красным и правильный зеленым
+            highlightWrongAnswer(selectedAnswer, currentQuestion.getCorrectAnswer());
+        }
+    }
+
+    private void highlightCorrectAnswer(String correctAnswer) {
+        AppCompatButton[] buttons = {option1, option2, option3, option4};
+        for (AppCompatButton button : buttons) {
+            if (button.getText().toString().equals(correctAnswer)) {
+                button.setBackgroundResource(R.drawable.round_back_green10);
+                button.setTextColor(getResources().getColor(android.R.color.white));
+            }
+        }
+    }
+
+    private void highlightWrongAnswer(String selectedAnswer, String correctAnswer) {
+        AppCompatButton[] buttons = {option1, option2, option3, option4};
+        for (AppCompatButton button : buttons) {
+            String buttonText = button.getText().toString();
+            if (buttonText.equals(selectedAnswer)) {
+                // Подсвечиваем выбранный неправильный ответ красным
+                button.setBackgroundResource(R.drawable.round_back_red10);
+                button.setTextColor(getResources().getColor(android.R.color.white));
+            } else if (buttonText.equals(correctAnswer)) {
+                // Подсвечиваем правильный ответ зеленым
+                button.setBackgroundResource(R.drawable.round_back_green10);
+                button.setTextColor(getResources().getColor(android.R.color.white));
+            }
         }
     }
 
@@ -280,12 +333,18 @@ public class QuizFragment extends Fragment {
     }
 
     private void finishQuiz() {
-        Log.d(TAG, "finishQuiz: Quiz finished. Score: " + score + "/" + questions.size());
-        // После завершения викторины, возможно, стоит перейти на экран результатов
-        // Вместо navigateUp(), возможно, нужно перейти на другой фрагмент/активность
-        // Например, с использованием Safe Args для передачи счета и имени пользователя.
-
+        Log.d(TAG, "Викторина завершена. Счет: " + score + "/" + questions.size());
+        
+        // Создаем диалог с результатами
+        new AlertDialog.Builder(requireContext())
+            .setTitle("Результаты викторины")
+            .setMessage(String.format("Поздравляем, %s!\n\nВаш результат: %d из %d", 
+                userName, score, questions.size()))
+            .setPositiveButton("Завершить", (dialog, which) -> {
         Navigation.findNavController(requireView()).navigateUp();
+            })
+            .setCancelable(false)
+            .show();
     }
 
     private void showExitConfirmationDialog() {

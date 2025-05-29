@@ -31,10 +31,12 @@ public class UserScore implements Comparable<UserScore> {
 
     @Override
     public int compareTo(UserScore other) {
-        return Integer.compare(other.score, this.score); // Сортировка по убыванию
+        // Сначала сравниваем по количеству очков (по убыванию)
+        int scoreCompare = Integer.compare(other.score, this.score);
+        if (scoreCompare != 0) {
+            return scoreCompare;
+        }
+        // Если очки равны, сравниваем по времени (по возрастанию)
+        return Long.compare(this.timestamp, other.timestamp);
     }
-
-    public int getName() {
-        return 0;
-    }
-}
+} 

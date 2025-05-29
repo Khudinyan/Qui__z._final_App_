@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.example.qui__z.model.UserScore;
+import com.example.qui__z.ui.leaderboard.LeaderboardManager;
 
 public class QuizResults extends AppCompatActivity {
     private TextView scoreTextView;
@@ -39,48 +40,35 @@ public class QuizResults extends AppCompatActivity {
     }
 
     private void displayResults() {
-        int correctAnswers = getIntent().getIntExtra("correct", 0);
-        int incorrectAnswers = getIntent().getIntExtra("incorrect", 0);
-        int totalQuestions = correctAnswers + incorrectAnswers;
-        int score = (correctAnswers * 100) / totalQuestions;
-
-        scoreTextView.setText(score + "%");
-        correctAnswersTextView.setText("Правильных ответов: " + correctAnswers);
-        incorrectAnswersTextView.setText("Неправильных ответов: " + incorrectAnswers);
-
-        // Сохраняем результат в SharedPreferences
-        saveScore(score);
-    }
-
-    private void saveScore(int score) {
-        SharedPreferences preferences = getSharedPreferences("Settings", MODE_PRIVATE);
-        String username = preferences.getString("username", "Гость");
-        
-        // Получаем текущий лучший результат
-        int bestScore = preferences.getInt(username + "_best_score", 0);
-        
-        // Если текущий результат лучше, обновляем лучший результат
-        if (score > bestScore) {
-            preferences.edit().putInt(username + "_best_score", score).apply();
-        }
+        int score = getIntent().getIntExtra("SCORE", 0);
+        int totalQuestions = getIntent().getIntExtra("TOTAL_QUESTIONS", 0);
+        String category = getIntent().getStringExtra("CATEGORY");
+        String userName = getIntent().getStringExtra("USER_NAME");
 
         // Сохраняем результат в таблицу лидеров
-        String category = getIntent().getStringExtra("CATEGORY");
-        if (category != null) {
-            UserScore userScore = new UserScore(username, score, category);
+        try {
+            UserScore userScore = new UserScore(userName, score, category);
             LeaderboardManager.getInstance(this).addScore(userScore);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        // Отображаем результаты
+        scoreTextView.setText(String.format("%d/%d", score, totalQuestions));
+        correctAnswersTextView.setText(String.valueOf(score));
+        incorrectAnswersTextView.setText(String.valueOf(totalQuestions - score));
     }
 
     private void setupButtons() {
         restartButton.setOnClickListener(v -> {
-            // Возвращаемся к выбору категории
-            startActivity(new Intent(QuizResults.this, CategoriesFragment.class));
+            Intent intent = new Intent(QuizResults.this, QuizActivity.class);
+            intent.putExtra("CATEGORY", getIntent().getStringExtra("CATEGORY"));
+            intent.putExtra("USER_NAME", getIntent().getStringExtra("USER_NAME"));
+            startActivity(intent);
             finish();
         });
 
         homeButton.setOnClickListener(v -> {
-            // Возвращаемся на главный экран
             startActivity(new Intent(QuizResults.this, MainActivity.class));
             finish();
         });

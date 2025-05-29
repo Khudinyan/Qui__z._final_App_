@@ -29,8 +29,9 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         UserScore userScore = userScores.get(position);
         holder.rankTextView.setText(String.valueOf(position + 1));
-        holder.nameTextView.setText(userScore.getName());
+        holder.nameTextView.setText(userScore.getUserName());
         holder.scoreTextView.setText(String.valueOf(userScore.getScore()));
+        holder.categoryTextView.setText(userScore.getCategory());
     }
 
     @Override
@@ -38,8 +39,8 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         return userScores.size();
     }
 
-    public void updateData(List<UserScore> newUserScores) {
-        this.userScores = newUserScores;
+    public void updateData(List<UserScore> newScores) {
+        this.userScores = newScores;
         notifyDataSetChanged();
     }
 
@@ -47,12 +48,14 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         TextView rankTextView;
         TextView nameTextView;
         TextView scoreTextView;
+        TextView categoryTextView;
 
         ViewHolder(View view) {
             super(view);
             rankTextView = view.findViewById(R.id.rankTextView);
             nameTextView = view.findViewById(R.id.nameTextView);
             scoreTextView = view.findViewById(R.id.scoreTextView);
+            categoryTextView = view.findViewById(R.id.categoryTextView);
         }
     }
 } 

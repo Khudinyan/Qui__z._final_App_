@@ -2,6 +2,7 @@ package com.example.qui__z;
 
 public class QuestionsList {
     private String question, option1, option2, option3, option4, answer, userSelectedAnswer;
+    private int imageResourceId;
 
     public QuestionsList(String question, String option1, String option2, String option3, String option4, String answer) {
         this.question = question;
@@ -11,6 +12,18 @@ public class QuestionsList {
         this.option4 = option4;
         this.answer = answer;
         this.userSelectedAnswer = "";
+        this.imageResourceId = 0;
+    }
+
+    public QuestionsList(String question, String option1, String option2, String option3, String option4, String answer, int imageResourceId) {
+        this.question = question;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.answer = answer;
+        this.userSelectedAnswer = "";
+        this.imageResourceId = imageResourceId;
     }
 
     public String getQuestion() {
@@ -43,5 +56,9 @@ public class QuestionsList {
 
     public void setUserSelectedAnswer(String userSelectedAnswer) {
         this.userSelectedAnswer = userSelectedAnswer;
+    }
+
+    public int getImageResourceId() {
+        return imageResourceId;
     }
 }
