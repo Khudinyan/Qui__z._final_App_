@@ -15,16 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/_16sdp">
 
             <TextView
                 android:id="@+id/timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:text="02:00"
-                android:textSize="24sp"
+                android:textColor="@color/text_timer"
+                android:textSize="@dimen/text_size_xlarge"
                 android:textStyle="bold" />
 
             <ProgressBar
@@ -32,76 +33,83 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:max="100"
-                android:progress="0" />
+                android:progress="0"
+                android:progressTint="@color/light_gray" />
 
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textColor="@color/text_question"
+                android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/option1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:background="@drawable/round_back_white_stroke2_10"
-                android:padding="16dp"
-                android:textColor="@color/primary" />
+                android:padding="@dimen/button_padding"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/option2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/round_back_white_stroke2_10"
-                android:padding="16dp"
-                android:textColor="@color/primary" />
+                android:padding="@dimen/button_padding"
+                android:textColor="@color/text_button" />
 
             <Button
                 android:id="@+id/option3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/round_back_white_stroke2_10"
-                android:padding="16dp"
-                android:textColor="@color/primary" />
+                android:padding="@dimen/button_padding"
+                android:textColor="@color/text_button" />
 
             <Button
                 android:id="@+id/option4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/round_back_white_stroke2_10"
-                android:padding="16dp"
-                android:textColor="@color/primary" />
+                android:padding="@dimen/button_padding"
+                android:textColor="@color/text_button" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/backBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_weight="1"
-                    android:text="Назад" />
+                    android:backgroundTint="@color/primary"
+                    android:text="Назад"
+                    android:textColor="@color/text_button" />
 
                 <Button
                     android:id="@+id/nextBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:layout_weight="1"
-                    android:text="Далее" />
+                    android:backgroundTint="@color/primary"
+                    android:text="Далее"
+                    android:textColor="@color/text_button" />
 
             </LinearLayout>
 

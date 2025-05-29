@@ -54,16 +54,25 @@ public class CategoriesFragment extends Fragment {
     }
 
     private void setupCardListeners() {
+        if (getView() == null) return;
+        
         flagsMainLayout.setOnClickListener(v -> selectCategory("flags"));
         capitalLayout.setOnClickListener(v -> selectCategory("capital"));
+        
         View languageLayout = getView().findViewById(R.id.languageLayout);
-        if (languageLayout != null) languageLayout.setOnClickListener(v -> selectCategory("language"));
+        if (languageLayout != null) {
+            languageLayout.setOnClickListener(v -> selectCategory("language"));
+        }
 
         View nationalityLayout = getView().findViewById(R.id.nationalityLayout);
-        if (nationalityLayout != null) nationalityLayout.setOnClickListener(v -> selectCategory("nationality"));
+        if (nationalityLayout != null) {
+            nationalityLayout.setOnClickListener(v -> selectCategory("nationality"));
+        }
 
         View planetsLayout = getView().findViewById(R.id.planetsLayout);
-        if (planetsLayout != null) planetsLayout.setOnClickListener(v -> selectCategory("planets"));
+        if (planetsLayout != null) {
+            planetsLayout.setOnClickListener(v -> selectCategory("planets"));
+        }
     }
 
     private void selectCategory(String category) {

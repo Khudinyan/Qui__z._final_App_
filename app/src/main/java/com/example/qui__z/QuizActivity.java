@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button option4;
     private Button nextBtn;
     private Button backBtn;
+    private BottomNavigationView bottomNavigationView;
 
     private List<QuestionsList> questions;
     private int currentQuestionIndex = 0;
@@ -42,10 +45,11 @@ public class QuizActivity extends AppCompatActivity {
 
         initializeViews();
         setupClickListeners();
-        
+        setupBottomNavigation();
+
         questions = QuestionsBank.getQuestions(category);
         Collections.shuffle(questions);
-        
+
         startTimer();
         showQuestion();
     }
@@ -60,6 +64,7 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
         nextBtn = findViewById(R.id.nextBtn);
         backBtn = findViewById(R.id.backBtn);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 
     private void setupClickListeners() {
@@ -97,6 +102,26 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+    private void setupBottomNavigation() {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.navigation_home) {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.navigation_leaderboard) {
+                startActivity(new Intent(this, LeaderboardActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.navigation_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
+    }
+
     private void startTimer() {
         timer = new CountDownTimer(QUESTION_TIME_MILLIS, 1000) {
             @Override
@@ -122,10 +147,10 @@ public class QuizActivity extends AppCompatActivity {
     private void showQuestion() {
         if (currentQuestionIndex < questions.size()) {
             QuestionsList currentQuestion = questions.get(currentQuestionIndex);
-            
+
             progressBar.setProgress((currentQuestionIndex + 1) * 100 / questions.size());
             questionTextView.setText(currentQuestion.getQuestion());
-            
+
             option1.setText(currentQuestion.getOption1());
             option2.setText(currentQuestion.getOption2());
             option3.setText(currentQuestion.getOption3());
@@ -142,11 +167,11 @@ public class QuizActivity extends AppCompatActivity {
         option2.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
         option3.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
         option4.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
-        
-        option1.setTextColor(getResources().getColor(R.color.primary));
-        option2.setTextColor(getResources().getColor(R.color.primary));
-        option3.setTextColor(getResources().getColor(R.color.primary));
-        option4.setTextColor(getResources().getColor(R.color.primary));
+
+        option1.setTextColor(getResources().getColor(R.color.white));
+        option2.setTextColor(getResources().getColor(R.color.white));
+        option3.setTextColor(getResources().getColor(R.color.white));
+        option4.setTextColor(getResources().getColor(R.color.white));
     }
 
     private void checkAnswer(String selectedAnswer) {
@@ -155,49 +180,34 @@ public class QuizActivity extends AppCompatActivity {
 
         if (selectedAnswer.equals(currentQuestion.getAnswer())) {
             score++;
-            switch (selectedAnswer) {
-                case "option1":
-                    option1.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option2":
-                    option2.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option3":
-                    option3.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option4":
-                    option4.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
+            if (selectedAnswer.equals(currentQuestion.getOption1())) {
+                option1.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption2())) {
+                option2.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption3())) {
+                option3.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption4())) {
+                option4.setBackgroundResource(R.drawable.round_back_green10);
             }
         } else {
-            switch (selectedAnswer) {
-                case "option1":
-                    option1.setBackgroundResource(R.drawable.round_back_red10);
-                    break;
-                case "option2":
-                    option2.setBackgroundResource(R.drawable.round_back_red10);
-                    break;
-                case "option3":
-                    option3.setBackgroundResource(R.drawable.round_back_red10);
-                    break;
-                case "option4":
-                    option4.setBackgroundResource(R.drawable.round_back_red10);
-                    break;
+            if (selectedAnswer.equals(currentQuestion.getOption1())) {
+                option1.setBackgroundResource(R.drawable.round_back_red10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption2())) {
+                option2.setBackgroundResource(R.drawable.round_back_red10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption3())) {
+                option3.setBackgroundResource(R.drawable.round_back_red10);
+            } else if (selectedAnswer.equals(currentQuestion.getOption4())) {
+                option4.setBackgroundResource(R.drawable.round_back_red10);
             }
 
-            switch (currentQuestion.getAnswer()) {
-                case "option1":
-                    option1.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option2":
-                    option2.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option3":
-                    option3.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
-                case "option4":
-                    option4.setBackgroundResource(R.drawable.round_back_green10);
-                    break;
+            if (currentQuestion.getAnswer().equals(currentQuestion.getOption1())) {
+                option1.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (currentQuestion.getAnswer().equals(currentQuestion.getOption2())) {
+                option2.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (currentQuestion.getAnswer().equals(currentQuestion.getOption3())) {
+                option3.setBackgroundResource(R.drawable.round_back_green10);
+            } else if (currentQuestion.getAnswer().equals(currentQuestion.getOption4())) {
+                option4.setBackgroundResource(R.drawable.round_back_green10);
             }
         }
     }
@@ -207,6 +217,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = new Intent(QuizActivity.this, QuizResults.class);
         intent.putExtra("correct", score);
         intent.putExtra("incorrect", questions.size() - score);
+        intent.putExtra("CATEGORY", getIntent().getStringExtra("CATEGORY"));
         startActivity(intent);
         finish();
     }
@@ -216,6 +227,23 @@ public class QuizActivity extends AppCompatActivity {
         super.onDestroy();
         if (timer != null) {
             timer.cancel();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentQuestionIndex > 0) {
+            // Если это не первый вопрос, показываем диалог подтверждения
+            new AlertDialog.Builder(this)
+                .setTitle("Выход из викторины")
+                .setMessage("Вы уверены, что хотите выйти из викторины? Весь прогресс будет потерян.")
+                .setPositiveButton("Да", (dialog, which) -> {
+                    finish();
+                })
+                .setNegativeButton("Нет", null)
+                .show();
+        } else {
+            super.onBackPressed();
         }
     }
 }

@@ -6,44 +6,63 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/resultsTextView"
+        android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:textSize="32sp"
+        android:layout_marginTop="48dp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/primary"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/finalScoreTextView"
+        android:id="@+id/correctAnswersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/scoreTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultsTextView" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <TextView
+        android:id="@+id/incorrectAnswersTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/correctAnswersTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/restartButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:padding="16dp"
+        android:layout_marginTop="48dp"
         android:text="Начать заново"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/finalScoreTextView" />
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/incorrectAnswersTextView" />
 
-    <Button
-        android:id="@+id/mainMenuButton"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/homeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:text="Главное меню"
-        android:textSize="18sp"
+        android:text="На главную"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/restartButton" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout> 

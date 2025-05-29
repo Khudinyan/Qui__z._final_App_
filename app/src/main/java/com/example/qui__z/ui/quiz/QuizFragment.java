@@ -300,6 +300,21 @@ public class QuizFragment extends Fragment {
                 .show();
     }
 
+    private void showErrorAndNavigateBack() {
+        if (getContext() != null) {
+            new AlertDialog.Builder(requireContext())
+                .setTitle("Ошибка")
+                .setMessage("Не удалось загрузить вопросы. Пожалуйста, попробуйте позже.")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    if (getActivity() != null) {
+                        getActivity().onBackPressed();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
